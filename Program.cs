@@ -7,7 +7,7 @@ using YakhaTraining;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace YakhaTraining
-{ 
+{
     class Day1
     {
         public static void Main(string[] args)
@@ -88,7 +88,45 @@ namespace YakhaTraining
 
             //Animal puppy = new Dog();
             //Animal kitten = new Cat();
-            //Animal budgie = new Bird();
+            AnimalShopClass AnimalShop = new AnimalShopClass();
+            //Animal budgie = new Bird(0,0);
+            //AnimalShop.animalList.Add(budgie);
+
+            Random rnd = new Random();
+            int rndNum = rnd.Next(0, 100);
+
+            for(int I = rndNum; I > 0; I--)
+            {
+                int animalSel = rnd.Next(0, 3);
+                switch(animalSel)
+                {
+                    case 0:
+                        Animal budgie = new Bird();
+                        AnimalShop.animalList.Add(budgie);
+                        break;
+                    case 1:
+                        Animal doggy = new Dog();
+                        AnimalShop.animalList.Add(doggy);
+                        break;
+                    case 2:
+                        Animal kitty = new Cat();
+                        AnimalShop.animalList.Add(kitty);
+                        break;
+                }
+            }
+            foreach (Animal anim in AnimalShop.animalList) 
+            {
+                Console.WriteLine(anim);
+            }
+            int SellAmount = rnd.Next(0, AnimalShop.animalList.Count());
+            for(int J = SellAmount; J>0; J--)
+            {
+                int sellID = rnd.Next(0, AnimalShop.animalList.Count());
+                AnimalShop.SellAnimal(sellID);
+                Console.WriteLine("REMOVED at " + sellID);
+            }
+            Console.WriteLine("Money made: " +  AnimalShop.getMoney());
+            Console.WriteLine("Animals left: " + AnimalShop.animalList.Count());
         }
     }
 
@@ -202,94 +240,5 @@ namespace YakhaTraining
             Console.WriteLine("____________________________");
         }
     }
-
-    abstract class Animal
-    {
-        public string sound ="";
-        public int weight = 0;
-        public void defSound(string snd)
-        {
-            this.sound = snd;
-            Console.WriteLine(this.sound);
-            this.DoTrick();
-        }
-
-        public void defWeight(int weightAnimal)
-        {
-            this.weight = weightAnimal;
-            Console.WriteLine(this.weight);
-        }
-        public abstract void DoTrick();
-    }
-
-    class Dog : Animal
-    {
-        public string mySound = "woof";
-        public int myWeight = 15;
-        public Dog()
-        {
-            this.defSound(mySound);
-            this.defWeight(myWeight);
-        }
-
-        public enum BodyParts
-        {
-            Paws,
-            Tail,
-            Ears,
-            Nose
-        }
-        public override void DoTrick()
-        {
-            Console.WriteLine("I can daaance");
-        }
-    }
-
-    class Cat : Animal
-    {
-        public string mySound = "meeooww";
-        public int myWeight = 5;
-        public Cat()
-        {
-            this.defSound(mySound);
-            this.defWeight(myWeight);
-        }
-
-        public enum BodyParts
-        {
-            Teeth,
-            Tail,
-            Fur,
-            Nose
-        }
-        public override void DoTrick()
-        {
-            Console.WriteLine("I can break your favorite Mug!");
-        }
-    }
-
-    class Bird : Animal
-    {
-        public string mySound = "PIEPS";
-        public int myWeight = 5;
-        public Bird()
-        {
-            this.defSound(mySound);
-            this.defWeight(myWeight);
-        }
-        public enum BodyParts
-        {
-            Wing,
-            Break,
-            Feather,
-            Claw
-        }
-        public override void DoTrick()
-        {
-            Console.WriteLine("Im the coolest");
-        }
-    }
-
-
 
 }
